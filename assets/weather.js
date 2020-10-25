@@ -3,17 +3,292 @@ $(document).ready(function () {
     var cityname;
     var queryurl;
     var Apikey = "f9fea2b8e9e46bb87cf75d74d0796e30";
+    var td = this.text; 
+
 
     // check weather on cityList // 
-    $("#cityList").on("click", "td", function () {
-        // Find what was clicked on, get value
-        var clicked = $(this).text();
+    // $("#cityList").on("click", "td", function () {
+    //     // Find what was clicked on, get value
+    //     var clicked = $(this).text();
 
-        (clicked);
+    //     (clicked);
+    // });
+    $("#paris").on("click",function () {
+        // Find what was clicked on, get value
+        queryurl = "https://api.openweathermap.org/data/2.5/forecast?q=" +"Paris"+ "&units=imperial" + "&appid=" + Apikey;
+       
+        $.ajax({
+            url: queryurl,
+            method: "GET",
+        }).then(function (response) {
+            console.log(response)
+
+            // Store the lat and lon data for use for the uvi
+            var lattitude = response.city.coord.lat;
+            var longitude = response.city.coord.lon;
+
+            // call getUVI, pass in lat and lon.
+            getUVI(lattitude, longitude);
+
+
+            var dateTime = convertDate(response.list[0].dt);
+
+            // Grab our DOM elements and display the appropriate weather values to the page.
+            $("#cityName").text(response.city.name);
+            $("#temp").html(response.list[0].main.temp + " &#730");
+            $("#humidity").text(response.list[0].main.humidity);
+            $("#wind").text(response.list[0].wind.speed);
+            $("#weather_image").attr("src", "http://openweathermap.org/img/w/" + response.list[0].weather[0].icon + ".png");
+            $("#dateString").text(dateTime);
+
+
+            getDailyForecast(response.city.name);
+
+            // FIVE DAYS FORCAST //
+            function getDailyForecast(city) {
+                // Make our AJAX call to pull our necessary values
+                $.ajax({
+                    url: "https://api.openweathermap.org/data/2.5/forecast?q=" +"Paris"+ "&units=imperial" + "&appid=" + Apikey,
+                    method: "GET"
+                }).then(function (response) {
+                    // Clear out the div to make room for new forecasts
+                    $("#forecastDays").empty();
+
+
+                    // Add by 7 to cycle through all hourly entries for each day.
+                    for (var i = 0, j = 1; i < response.list.length, j <= 5; i += 8, j++) {
+                        // Convert our date to human readable format, store in var.
+                        var dateTime = convertDate(response.list[i].dt);
+                        // Create, style, and set our dynamic DOM elements
+                        var newDiv = $("<div>").attr("id", "day" + j);
+                        var pTemp = $("<p>");
+                        var pHumid = $("<p>");
+                        var iconImage = $("<img>");
+
+                        newDiv.attr("class", "col-lg-2").appendTo("#forecastDays");
+                        newDiv.html("<h6>" + dateTime + "</h6>").appendTo(newDiv);
+                        pTemp.html('<i class="fas fa-thermometer-full"></i>' + response.list[i].main.temp).appendTo(newDiv);
+                        pHumid.html('<i class="fas fa-smog"></i>' + response.list[i].main.humidity + "%").appendTo(newDiv);
+                        iconImage.attr("src", "http://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png").appendTo(newDiv);
+
+                        // Append elements //
+                        $("#forecastDays").append(newDiv);
+                    }
+                });
+            }
+
+        });
+
     });
 
+    $("#cairo").on("click",function () {
+        // Find what was clicked on, get value
+        queryurl = "https://api.openweathermap.org/data/2.5/forecast?q=" +"Cairo"+ "&units=imperial" + "&appid=" + Apikey;
+       
+        $.ajax({
+            url: queryurl,
+            method: "GET",
+        }).then(function (response) {
+            console.log(response)
+
+            // Store the lat and lon data for use for the uvi
+            var lattitude = response.city.coord.lat;
+            var longitude = response.city.coord.lon;
+
+            // call getUVI, pass in lat and lon.
+            getUVI(lattitude, longitude);
+
+
+            var dateTime = convertDate(response.list[0].dt);
+
+            // Grab our DOM elements and display the appropriate weather values to the page.
+            $("#cityName").text(response.city.name);
+            $("#temp").html(response.list[0].main.temp + " &#730");
+            $("#humidity").text(response.list[0].main.humidity);
+            $("#wind").text(response.list[0].wind.speed);
+            $("#weather_image").attr("src", "http://openweathermap.org/img/w/" + response.list[0].weather[0].icon + ".png");
+            $("#dateString").text(dateTime);
+
+
+            getDailyForecast(response.city.name);
+
+            // FIVE DAYS FORCAST //
+            function getDailyForecast(city) {
+                // Make our AJAX call to pull our necessary values
+                $.ajax({
+                    url: "https://api.openweathermap.org/data/2.5/forecast?q=" +"Cairo"+ "&units=imperial" + "&appid=" + Apikey,
+                    method: "GET"
+                }).then(function (response) {
+                    // Clear out the div to make room for new forecasts
+                    $("#forecastDays").empty();
+
+
+                    // Add by 7 to cycle through all hourly entries for each day.
+                    for (var i = 0, j = 1; i < response.list.length, j <= 5; i += 8, j++) {
+                        // Convert our date to human readable format, store in var.
+                        var dateTime = convertDate(response.list[i].dt);
+                        // Create, style, and set our dynamic DOM elements
+                        var newDiv = $("<div>").attr("id", "day" + j);
+                        var pTemp = $("<p>");
+                        var pHumid = $("<p>");
+                        var iconImage = $("<img>");
+
+                        newDiv.attr("class", "col-lg-2").appendTo("#forecastDays");
+                        newDiv.html("<h6>" + dateTime + "</h6>").appendTo(newDiv);
+                        pTemp.html('<i class="fas fa-thermometer-full"></i>' + response.list[i].main.temp).appendTo(newDiv);
+                        pHumid.html('<i class="fas fa-smog"></i>' + response.list[i].main.humidity + "%").appendTo(newDiv);
+                        iconImage.attr("src", "http://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png").appendTo(newDiv);
+
+                        // Append elements //
+                        $("#forecastDays").append(newDiv);
+                    }
+                });
+            }
+
+        });
+
+    });
+
+    $("#london").on("click",function () {
+        // Find what was clicked on, get value
+        queryurl = "https://api.openweathermap.org/data/2.5/forecast?q=" +"London"+ "&units=imperial" + "&appid=" + Apikey;
+       
+        $.ajax({
+            url: queryurl,
+            method: "GET",
+        }).then(function (response) {
+            console.log(response)
+
+            // Store the lat and lon data for use for the uvi
+            var lattitude = response.city.coord.lat;
+            var longitude = response.city.coord.lon;
+
+            // call getUVI, pass in lat and lon.
+            getUVI(lattitude, longitude);
+
+
+            var dateTime = convertDate(response.list[0].dt);
+
+            // Grab our DOM elements and display the appropriate weather values to the page.
+            $("#cityName").text(response.city.name);
+            $("#temp").html(response.list[0].main.temp + " &#730");
+            $("#humidity").text(response.list[0].main.humidity);
+            $("#wind").text(response.list[0].wind.speed);
+            $("#weather_image").attr("src", "http://openweathermap.org/img/w/" + response.list[0].weather[0].icon + ".png");
+            $("#dateString").text(dateTime);
+
+
+            getDailyForecast(response.city.name);
+
+            // FIVE DAYS FORCAST //
+            function getDailyForecast(city) {
+                // Make our AJAX call to pull our necessary values
+                $.ajax({
+                    url: "https://api.openweathermap.org/data/2.5/forecast?q=" +"London"+ "&units=imperial" + "&appid=" + Apikey,
+                    method: "GET"
+                }).then(function (response) {
+                    // Clear out the div to make room for new forecasts
+                    $("#forecastDays").empty();
+
+
+                    // Add by 7 to cycle through all hourly entries for each day.
+                    for (var i = 0, j = 1; i < response.list.length, j <= 5; i += 8, j++) {
+                        // Convert our date to human readable format, store in var.
+                        var dateTime = convertDate(response.list[i].dt);
+                        // Create, style, and set our dynamic DOM elements
+                        var newDiv = $("<div>").attr("id", "day" + j);
+                        var pTemp = $("<p>");
+                        var pHumid = $("<p>");
+                        var iconImage = $("<img>");
+
+                        newDiv.attr("class", "col-lg-2").appendTo("#forecastDays");
+                        newDiv.html("<h6>" + dateTime + "</h6>").appendTo(newDiv);
+                        pTemp.html('<i class="fas fa-thermometer-full"></i>' + response.list[i].main.temp).appendTo(newDiv);
+                        pHumid.html('<i class="fas fa-smog"></i>' + response.list[i].main.humidity + "%").appendTo(newDiv);
+                        iconImage.attr("src", "http://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png").appendTo(newDiv);
+
+                        // Append elements //
+                        $("#forecastDays").append(newDiv);
+                    }
+                });
+            }
+
+        });
+
+    });
+
+
+
+    $("#orlando").on("click",function () {
+        // Find what was clicked on, get value
+        queryurl = "https://api.openweathermap.org/data/2.5/forecast?q=" +"Orlando"+ "&units=imperial" + "&appid=" + Apikey;
+       
+        $.ajax({
+            url: queryurl,
+            method: "GET",
+        }).then(function (response) {
+            console.log(response)
+
+            // Store the lat and lon data for use for the uvi
+            var lattitude = response.city.coord.lat;
+            var longitude = response.city.coord.lon;
+
+            // call getUVI, pass in lat and lon.
+            getUVI(lattitude, longitude);
+
+
+            var dateTime = convertDate(response.list[0].dt);
+
+            // Grab our DOM elements and display the appropriate weather values to the page.
+            $("#cityName").text(response.city.name);
+            $("#temp").html(response.list[0].main.temp + " &#730");
+            $("#humidity").text(response.list[0].main.humidity);
+            $("#wind").text(response.list[0].wind.speed);
+            $("#weather_image").attr("src", "http://openweathermap.org/img/w/" + response.list[0].weather[0].icon + ".png");
+            $("#dateString").text(dateTime);
+
+
+            getDailyForecast(response.city.name);
+
+            // FIVE DAYS FORCAST //
+            function getDailyForecast(city) {
+                // Make our AJAX call to pull our necessary values
+                $.ajax({
+                    url: "https://api.openweathermap.org/data/2.5/forecast?q=" +"Orlando"+ "&units=imperial" + "&appid=" + Apikey,
+                    method: "GET"
+                }).then(function (response) {
+                    // Clear out the div to make room for new forecasts
+                    $("#forecastDays").empty();
+
+
+                    // Add by 7 to cycle through all hourly entries for each day.
+                    for (var i = 0, j = 1; i < response.list.length, j <= 5; i += 8, j++) {
+                        // Convert our date to human readable format, store in var.
+                        var dateTime = convertDate(response.list[i].dt);
+                        // Create, style, and set our dynamic DOM elements
+                        var newDiv = $("<div>").attr("id", "day" + j);
+                        var pTemp = $("<p>");
+                        var pHumid = $("<p>");
+                        var iconImage = $("<img>");
+
+                        newDiv.attr("class", "col-lg-2").appendTo("#forecastDays");
+                        newDiv.html("<h6>" + dateTime + "</h6>").appendTo(newDiv);
+                        pTemp.html('<i class="fas fa-thermometer-full"></i>' + response.list[i].main.temp).appendTo(newDiv);
+                        pHumid.html('<i class="fas fa-smog"></i>' + response.list[i].main.humidity + "%").appendTo(newDiv);
+                        iconImage.attr("src", "http://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png").appendTo(newDiv);
+
+                        // Append elements //
+                        $("#forecastDays").append(newDiv);
+                    }
+                });
+            }
+
+        });
+
+    });
+    
     // search cycle // 
-    $("#Btn").click(function (weather) {
+    $("#Btn").click(function () {
 
         cityname = $("#userInput").val();
         queryurl = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityname + "&units=imperial" + "&appid=" + Apikey;
@@ -82,6 +357,7 @@ $(document).ready(function () {
 
             });
         }
+
 
     })
 
