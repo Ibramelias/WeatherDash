@@ -18,4 +18,4 @@ API's Homework assignment (Weather Dashboard).
 https://ibramelias.github.io/WeatherDash/
 
 ## Screenshot
-[](WeatherDash/blob/main/assets/img/Screen%20Shot%202020-10-24%20at%208.56.49%20PM.png)
+![](assets/img/Screen%20Shot%202020-10-24%20at%208.56.49%20PM.png)
