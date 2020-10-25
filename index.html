@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap link -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <!-- CSS link -->
+    <link rel="stylesheet" href="assets/style.css">
+    <title>Weather Dashboard</title>
+</head>
+
+<body>
+    <!-- Navbar  -->
+    <nav class="navbar navbar-light bg-dark">
+        <p class="nav-text">Weahter Dashboard</p>
+    </nav>
+
+    <!-- Main Info -->
+    <section id="main">
+        <!-- user input -->
+        <section id="search">
+            <p id="search-city">Search for a City</p>
+            <input id="userInput"></input>
+            <button id="Btn">Search</button>
+        </section>
+        <!-- table for more cities -->
+        <div class=row>
+            <table class="cityList table table-striped table-hover" id="cityList">
+                <tr>
+                    <td>Paris</td>
+                </tr>
+                <tr>
+                    <td>Cairo</td>
+                </tr>
+                <tr>
+                    <td>London</td>
+                </tr>
+                <tr>
+                    <td>Orlando</td>
+                </tr>
+                <tr>
+                    <td>New York</td>
+                </tr>
+                <tr>
+                    <td>Californa</td>
+                </tr>
+            </table>
+            <!-- display weather -->
+            <div class="col-lg-8">
+                <section class="info-screen">
+                    <div class="container">
+                        <h3 id="cityName"></h3><span id="dateString"></span><img id="weather_image" src="" >
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <p><i></i> Temperature: <span id="temp"></span></p>
+                            </div>
+                            <div class="col-lg-6">
+                                <p><i></i> uvindex: <span id="uvi"></span></p>
+                                <p><i></i> Humidity: <span id="humidity"></span>%</p>
+                                <p><i></i> Wind Speed: <span id="wind"></span></p>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- five days forcast -->
+                <div class="row">
+                    <div class="container">
+                        <h4>Five Days Forecast.</h4>
+                        <div class="row" id="forecastDays">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+<!-- ajax link -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- javascript link  -->
+<script src="assets/weather.js"></script>
+
+</html>
