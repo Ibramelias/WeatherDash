@@ -23,7 +23,8 @@
 }
 #cityList{
     width: 25%;
-    border: 1px solid rgb(189, 188, 188);
+    border: 2px solid rgb(189, 188, 188);
+    cursor: pointer;
 }
 #Btn{
     margin-top: 15px;
@@ -59,7 +60,7 @@ h4{
 #day4,
 #day5
 {
-    background-color: #3FA0E4;
+    background-color: #87ceeb;
     padding: 5px 25px;
     margin: 10px;
     border-radius: 20px;
@@ -74,24 +75,23 @@ h4{
 }
 
 .severe {
-    background-color:#e74c3c;
+    background-color: red;
 }
 
 .moderate {
-    background-color: #f39c12;
+    background-color: orange;
 }
 
 .favorable {
-    background-color: #27ae60;
+    background-color: green;
 }
 
 
 @media screen and (max-width: 991px) {
     body {
-      background-color: rgb(202, 239, 209);
+      background-color: rgb(220, 240, 223);
     }
     #cityList{
-        width: 100%;
+        width: 100%;      
     }
-  
 }
