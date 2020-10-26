@@ -29,7 +29,7 @@ $(document).ready(function () {
 
                 // Grab our DOM elements and display the appropriate weather values to the page.
                 $("#cityName").text(response.city.name);
-                $("#temp").html(response.list[0].main.temp + " &#730");
+                $("#temp").html(response.list[0].main.temp + "");
                 $("#humidity").text(response.list[0].main.humidity);
                 $("#wind").text(response.list[0].wind.speed);
                 $("#weather_image").attr("src", "http://openweathermap.org/img/w/" + response.list[0].weather[0].icon + ".png");
