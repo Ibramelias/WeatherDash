@@ -1,5 +1,5 @@
 # Weather-Dash.
-API's Homework assignment (Weather Dashboard).
+You wanna go out and you don't know is it cold outside or not? Here is very simple app to check the weather.
 
 ## Build With.
 * HTML.
